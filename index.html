@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airports in Nigeria - Leaflet Map</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+         crossorigin=""/>
+    
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+         crossorigin=""></script>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            height: 100vh; /* Full screen height */
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="map"></div>
+
+    <script>
+        // 5. Initialize the map and center it on Nigeria
+        var map = L.map('map').setView([9.0820, 8.6753], 6); // Centered on Nigeria, zoom level 6
+
+        // 6. Add a tile layer (base map)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // 7. Define the airport data as a GeoJSON FeatureCollection
+        // Note: GeoJSON coordinates are in [Longitude, Latitude] format
+        var airportData = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [3.3212, 6.5774] },
+                    "properties": {
+                        "Name": "Murtala Muhammed Int'l Airport",
+                        "City": "Lagos",
+                        "State": "Lagos",
+                        "IATA": "LOS",
+                        "ICAO": "DNMM"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [7.2631, 9.0067] },
+                    "properties": {
+                        "Name": "Nnamdi Azikiwe Int'l Airport",
+                        "City": "Abuja",
+                        "State": "FCT",
+                        "IATA": "ABV",
+                        "ICAO": "DNAA"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [8.5236, 12.0481] },
+                    "properties": {
+                        "Name": "Mallam Aminu Kano Int'l Airport",
+                        "City": "Kano",
+                        "State": "Kano",
+                        "IATA": "KAN",
+                        "ICAO": "DNKN"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [6.9496, 5.0155] },
+                    "properties": {
+                        "Name": "Port Harcourt Int'l Airport",
+                        "City": "Port Harcourt",
+                        "State": "Rivers",
+                        "IATA": "PHC",
+                        "ICAO": "DNPO"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [7.5589, 6.4736] },
+                    "properties": {
+                        "Name": "Akanu Ibiam Int'l Airport",
+                        "City": "Enugu",
+                        "State": "Enugu",
+                        "IATA": "ENU",
+                        "ICAO": "DNEN"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [5.2079, 12.9161] },
+                    "properties": {
+                        "Name": "Sadiq Abubakar III Int'l Airport",
+                        "City": "Sokoto",
+                        "State": "Sokoto",
+                        "IATA": "SKO",
+                        "ICAO": "DNSO"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [13.0811, 11.8550] },
+                    "properties": {
+                        "Name": "Maiduguri Int'l Airport",
+                        "City": "Maiduguri",
+                        "State": "Borno",
+                        "IATA": "MIU",
+                        "ICAO": "DNMA"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [7.3203, 10.6958] },
+                    "properties": {
+                        "Name": "Kaduna Int'l Airport",
+                        "City": "Kaduna",
+                        "State": "Kaduna",
+                        "IATA": "KAD",
+                        "ICAO": "DNKA"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [8.3472, 4.9761] },
+                    "properties": {
+                        "Name": "Margaret Ekpo Int'l Airport",
+                        "City": "Calabar",
+                        "State": "Cross River",
+                        "IATA": "CBQ",
+                        "ICAO": "DNCA"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [4.4940, 8.4400] },
+                    "properties": {
+                        "Name": "General Tunde Idiagbon Int'l Airport",
+                        "City": "Ilorin",
+                        "State": "Kwara",
+                        "IATA": "ILR",
+                        "ICAO": "DNIL"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [6.8713, 6.2672] },
+                    "properties": {
+                        "Name": "Chinua Achebe Int'l Airport",
+                        "City": "Umueri",
+                        "State": "Anambra",
+                        "IATA": "ANA",
+                        "ICAO": "DNAN"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [8.0181, 6.1969] },
+                    "properties": {
+                        "Name": "Ebonyi State Int'l Airport",
+                        "City": "Abakaliki",
+                        "State": "Ebonyi",
+                        "IATA": "-",
+                        "ICAO": "DNEB"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [3.7106, 6.9392] },
+                    "properties": {
+                        "Name": "Gateway Int'l Airport",
+                        "City": "Iperu-Remo",
+                        "State": "Ogun",
+                        "IATA": "GWI",
+                        "ICAO": "DNGA"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [6.6674, 6.2032] },
+                    "properties": {
+                        "Name": "Asaba Int'l Airport",
+                        "City": "Asaba",
+                        "State": "Delta",
+                        "IATA": "ABB",
+                        "ICAO": "DNAS"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [9.7439, 10.4828] },
+                    "properties": {
+                        "Name": "Sir Abubakar Tafawa Balewa Airport",
+                        "City": "Bauchi",
+                        "State": "Bauchi",
+                        "IATA": "BCU",
+                        "ICAO": "DNBC"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [5.5989, 6.3167] },
+                    "properties": {
+                        "Name": "Benin Airport",
+                        "City": "Benin City",
+                        "State": "Edo",
+                        "IATA": "BNI",
+                        "ICAO": "DNBE"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [7.2050, 5.4286] },
+                    "properties": {
+                        "Name": "Sam Mbakwe Int'l Cargo Airport",
+                        "City": "Owerri",
+                        "State": "Imo",
+                        "IATA": "QOW",
+                        "ICAO": "DNIM"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [8.0944, 4.8736] },
+                    "properties": {
+                        "Name": "Victor Attah Int'l Airport",
+                        "City": "Uyo",
+                        "State": "Akwa Ibom",
+                        "IATA": "QUO",
+                        "ICAO": "DNAI"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [12.4313, 9.2747] },
+                    "properties": {
+                        "Name": "Yola Airport",
+                        "City": "Yola",
+                        "State": "Adamawa",
+                        "IATA": "YOL",
+                        "ICAO": "DNYO"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [5.3010, 7.2467] },
+                    "properties": {
+                        "Name": "Akure Airport",
+                        "City": "Akure",
+                        "State": "Ondo",
+                        "IATA": "AKR",
+                        "ICAO": "DNAK"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [10.8992, 10.2981] },
+                    "properties": {
+                        "Name": "Gombe Lawanti Int'l Airport",
+                        "City": "Gombe",
+                        "State": "Gombe",
+                        "IATA": "GMO",
+                        "ICAO": "DNGO"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [4.3694, 12.4792] },
+                    "properties": {
+                        "Name": "Sir Ahmadu Bello Int'l Airport",
+                        "City": "Birnin Kebbi",
+                        "State": "Kebbi",
+                        "IATA": "-",
+                        "ICAO": "DNBK"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [11.2850, 8.9030] },
+                    "properties": {
+                        "Name": "Danbaba Danfulani Suntai Airport",
+                        "City": "Jalingo",
+                        "State": "Taraba",
+                        "IATA": "-",
+                        "ICAO": "DNJA"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [7.6622, 13.0075] },
+                    "properties": {
+                        "Name": "Katsina Airport",
+                        "City": "Katsina",
+                        "State": "Katsina",
+                        "IATA": "DKA",
+                        "ICAO": "DNKT"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [8.8692, 9.6397] },
+                    "properties": {
+                        "Name": "Yakubu Gowon Airport",
+                        "City": "Jos",
+                        "State": "Plateau",
+                        "IATA": "JOS",
+                        "ICAO": "DNJO"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [8.6133, 7.7011] },
+                    "properties": {
+                        "Name": "Makurdi Airport",
+                        "City": "Makurdi",
+                        "State": "Benue",
+                        "IATA": "MDI",
+                        "ICAO": "DNMK"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [6.4670, 9.6580] },
+                    "properties": {
+                        "Name": "Minna Airport",
+                        "City": "Minna",
+                        "State": "Niger",
+                        "IATA": "MXJ",
+                        "ICAO": "DNMN"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [5.8214, 5.5947] },
+                    "properties": {
+                        "Name": "Osubi Airport (Warri Airport)",
+                        "City": "Warri",
+                        "State": "Delta",
+                        "IATA": "QRW",
+                        "ICAO": "DNSU"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [6.2034, 4.9577] },
+                    "properties": {
+                        "Name": "Bayelsa Int'l Airport",
+                        "City": "Yenagoa",
+                        "State": "Bayelsa",
+                        "IATA": "-",
+                        "ICAO": "-"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [7.6858, 11.1302] },
+                    "properties": {
+                        "Name": "Zaria Airport",
+                        "City": "Zaria",
+                        "State": "Kaduna",
+                        "IATA": "ZAR",
+                        "ICAO": "DNZA"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [8.5200, 8.6000] },
+                    "properties": {
+                        "Name": "Lafia Cargo Airport",
+                        "City": "Lafia",
+                        "State": "Nasarawa",
+                        "IATA": "-",
+                        "ICAO": "-"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [11.9611, 11.7444] },
+                    "properties": {
+                        "Name": "Damaturu Cargo Airport",
+                        "City": "Damaturu",
+                        "State": "Yobe",
+                        "IATA": "-",
+                        "ICAO": "-"
+                    }
+                }
+            ]
+        };
+
+        // 8. Add the GeoJSON layer to the map
+        L.geoJSON(airportData, {
+            onEachFeature: function (feature, layer) {
+                // Check if the feature has properties
+                if (feature.properties) {
+                    // Create the popup content string
+                    var popupContent = "<strong>" + feature.properties.Name + "</strong><br>" +
+                                       "<strong>City:</strong> " + feature.properties.City + ", " + feature.properties.State + "<br>" +
+                                       "<strong>IATA:</strong> " + feature.properties.IATA + "<br>" +
+                                       "<strong>ICAO:</strong> " + feature.properties.ICAO;
+                    
+                    // Bind the popup to the marker
+                    layer.bindPopup(popupContent);
+                }
+            }
+        }).addTo(map);
+
+    </script>
+
+</body>
+</html>
